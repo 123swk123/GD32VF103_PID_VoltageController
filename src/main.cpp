@@ -49,21 +49,21 @@ PT_THREAD(test_state(struct pt *pt))
     while(1){
         LEDR(0);
         LCD_ShowString(0,  0, (u8*)"set: 1.0v", BLACK);
-        setVolt = -0.5979299363057324*4096/3.3;
+        setVolt = -0.5979299363057324*4096/3.3; //output: 1.0v
         PT_WAIT_UNTIL(pt, timer_expired(&tmr));
         timer_restart(&tmr);    //100ms
         LEDR(1);
         
         LEDG(0);
         LCD_ShowString(0,  0, (u8*)"set: 3.0v", BLACK);
-        setVolt = -1.7937898089171975*4096/3.3;
+        setVolt = -1.7937898089171975*4096/3.3; //output: 3.0v
         PT_WAIT_UNTIL(pt, timer_expired(&tmr));
         timer_restart(&tmr);    //100ms
         LEDG(1);
         
         LEDB(0);
         LCD_ShowString(0,  0, (u8*)"set: 2.5v", BLACK);
-        setVolt = -1.494824840764331*4096/3.3;
+        setVolt = -1.494824840764331*4096/3.3;  //output: 2.5v
         PT_WAIT_UNTIL(pt, timer_expired(&tmr));
         timer_restart(&tmr);    //100ms
         LEDB(1);
@@ -79,7 +79,7 @@ PT_THREAD(scan_adc(struct pt *pt))
 
     PT_BEGIN(pt);
 
-    myPID.setOutputRange(0, 1.3*4096/3.3);
+    myPID.setOutputRange(0, 1.3*4096/3.3);  //set max DAC0 voltage: 1.3v
     timer_set(&tmr, 10 * 1000);    //10ms
     while(1){
         adc_software_trigger_enable(ADC0, ADC_INSERTED_CHANNEL);
